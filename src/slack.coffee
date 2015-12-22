@@ -176,6 +176,14 @@ class SlackBot extends Adapter
   reactionAdded: (msg) =>
     user = @robot.brain.userForId msg.user
     text = msg.reaction
+    messageData = {
+      type: msg.type,
+      user: msg.user,
+      item: msg.item,
+      reaction: msg.reaction,
+      'event_ts': msg['event_ts']
+    }
+    console.log('reaction_added MESSAGE IN BOT:', messageData)
     @receive new SlackTextMessage user, text, text, msg
 
   removeFormatting: (text) ->
