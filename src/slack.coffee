@@ -175,9 +175,8 @@ class SlackBot extends Adapter
 
   reactionAdded: (msg) =>
     user = @robot.brain.userForId msg.user
-    rawText = msg.item.message.text
-    text = @removeFormatting rawText
-    @receive new SlackTextMessage user, text, rawText, msg
+    text = msg.reaction
+    @receive new SlackTextMessage user, text, text, msg
 
   removeFormatting: (text) ->
     # https://api.slack.com/docs/formatting
