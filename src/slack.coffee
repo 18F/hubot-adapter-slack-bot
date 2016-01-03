@@ -174,7 +174,12 @@ class SlackBot extends Adapter
       @receive new SlackTextMessage user, text, rawText, msg
 
   reactionAdded: (msg) =>
+    # Ignore our own reactions
+    return if msg.user == @self.id
+
+    channel = @client.getChannelGroupOrDMByID msg.item.channel
     user = @robot.brain.userForId msg.user
+    user.room = channel.name
     text = msg.reaction
     @receive new SlackTextMessage user, text, text, msg
 
