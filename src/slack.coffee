@@ -38,7 +38,8 @@ class SlackBot extends Adapter
     @client.on 'open', @.open
     @client.on 'close', @.clientClose
     @client.on 'message', @.message
-    @client.on 'reaction_added', @.reactionAdded
+    @client.on 'reaction_added', @.reaction
+    @client.on 'reaction_removed', @.reaction
     @client.on 'userChange', @.userChange
     @robot.brain.on 'loaded', @.brainLoaded
 
@@ -108,7 +109,8 @@ class SlackBot extends Adapter
       @client.removeListener 'open', @.open
       @client.removeListener 'close', @.clientClose
       @client.removeListener 'message', @.message
-      @client.removeListener 'reaction_added', @.reactionAdded
+      @client.removeListener 'reaction_added', @.reaction
+      @client.removeListener 'reaction_removed', @.reaction
       @client.removeListener 'userChange', @.userChange
       process.exit 1
     else
@@ -173,7 +175,7 @@ class SlackBot extends Adapter
 
       @receive new SlackTextMessage user, text, rawText, msg
 
-  reactionAdded: (msg) =>
+  reaction: (msg) =>
     # Ignore our own reactions
     return if msg.user == @self.id
 
