@@ -38,7 +38,8 @@ class SlackBot extends Adapter
     @client.on 'open', @.open
     @client.on 'close', @.clientClose
     @client.on 'message', @.message
-    @client.on 'reaction_added', @.reactionAdded
+    @client.on 'reaction_added', @.reaction
+    @client.on 'reaction_removed', @.reaction
     @client.on 'userChange', @.userChange
     @robot.brain.on 'loaded', @.brainLoaded
 
